@@ -1,27 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useApi } from '@backstage/core-plugin-api';
 import { configApiRef } from '@backstage/core-plugin-api';
 
 const KubernetesDashboard = () => {
-  const configApi = useApi(configApiRef);
-
-  useEffect(() => {
-    // Leer la URL y el token del Dashboard desde la configuración
-    const dashboardUrl = configApi.getOptionalString('kubernetesDashboard.url');
-    const token = configApi.getOptionalString('kubernetesDashboard.token');
-
-    if (dashboardUrl && token) {
-      // Construir la URL con el token y redirigir
-      const urlWithToken = `${dashboardUrl}?auth_token=${encodeURIComponent(token)}`;
-      window.location.href = urlWithToken;
-    } else {
-      console.error('La configuración de Kubernetes Dashboard no está completa.');
-    }
-  }, [configApi]);
+  const iframeRef = useRef(null);
+  const [inputValue, setInputValue] = useState('');
 
   return (
     <div>
-      <h1>Redirigiendo al Kubernetes Dashboard...</h1>
+      <h1>Dashboard EKS</h1>
+      <iframe
+        ref={iframeRef}
+        src="https://127.0.0.1:10443/#/workloads?namespace=default"
+        style={{ width: '100%', height: '400px', border: '1px solid black' }}
+      />
     </div>
   );
 };
