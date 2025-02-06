@@ -1,6 +1,10 @@
 app:
   title: POC Kubernetes Dashboard
-  baseUrl: http://localhost:3000
+  baseUrl: 'https://localhost:3000'
+  https:
+    certificate:
+      cert: /mnt/c/REPOS/POCS/certs/server.crt
+      key: /mnt/c/REPOS/POCS/certs/server.key
 
 organization:
   name: OSPO POC
@@ -23,7 +27,7 @@ backend:
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
     origin: 
-      - http://localhost:3000
+      - https://localhost:3000
       - https://localhost:10443
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: false
@@ -117,9 +121,3 @@ permission:
 kubernetesDashboard:
   url: ${K8S_DASHBOARD_URL}
   token: ${K8S_DASHBOARD_TOKEN}
-
-# Define la visibilidad para los parámetros
-visibility:
-  kubernetesDashboard:
-    url: frontend
-    token: frontend

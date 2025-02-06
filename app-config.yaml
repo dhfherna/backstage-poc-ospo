@@ -3,7 +3,7 @@ app:
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: Oficina OpenSource
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -19,6 +19,7 @@ backend:
     # host: 127.0.0.1
   csp:
     connect-src: ["'self'", 'http:', 'https:']
+    upgrade-insecure-requests: false
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
@@ -117,9 +118,3 @@ permission:
 kubernetesDashboard:
   url: ${K8S_DASHBOARD_URL}
   token: ${K8S_DASHBOARD_TOKEN}
-
-# Define la visibilidad para los parámetros
-visibility:
-  kubernetesDashboard:
-    url: frontend
-    token: frontend
